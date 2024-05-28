@@ -1,13 +1,16 @@
 import PostItem from '../PostItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'store'
-import { deletePost } from 'pages/blog/blog.reducer'
+import { deletePost, startEdittingPost } from 'pages/blog/blog.reducer'
 
 export default function PostList() {
   const postList = useSelector((state: RootState) => state.blog.postList)
   const dispatch = useDispatch()
   const handleDelete = (postId: string) => {
     dispatch(deletePost(postId))
+  }
+  const handleStartEditting = (postId: string) => {
+    dispatch(startEdittingPost(postId))
   }
   return (
     <div className='bg-white py-6 sm:py-8 lg:py-12'>
@@ -20,7 +23,7 @@ export default function PostList() {
         </div>
         <div className='grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-2 xl:grid-cols-2 xl:gap-8'>
           {postList.map((post) => (
-            <PostItem post={post} key={post.id} handleDelete={handleDelete} />
+            <PostItem post={post} key={post.id} handleDelete={handleDelete} handleStartEditting={handleStartEditting} />
           ))}
         </div>
       </div>
